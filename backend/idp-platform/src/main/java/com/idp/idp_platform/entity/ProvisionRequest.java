@@ -2,7 +2,7 @@ package com.idp.idp_platform.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.idp.idp_platform.entity.enums.RequestStatus;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,19 +18,46 @@ public class ProvisionRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "service_catalog_id")
+    private ServiceCatalog serviceCatalog;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "requested_by")
+    private User requestedBy;
+
+    @Column(nullable = false, length = 50)
+    private String environment;
+
+    @Column(nullable = false, length = 1000)
+    private String justification;
+
     @Enumerated(EnumType.STRING)
-    private RequestStatus status;
+    @Column(nullable = false)
+    private ProvisionStatus status;
 
-    @Column(columnDefinition = "TEXT")
-    private String parameters;
-
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "catalog_id")
-    private ServiceCatalog serviceCatalog;
+    @PrePersist
+    public void prePersist() {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        this.createdAt = now;
+        this.updatedAt = now;
+
+        if (this.status == null) {
+            this.status = ProvisionStatus.PENDING;
+        }
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+
+        this.updatedAt = LocalDateTime.now();
+    }
 }

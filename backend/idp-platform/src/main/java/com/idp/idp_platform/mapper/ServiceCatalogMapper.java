@@ -15,6 +15,8 @@ public class ServiceCatalogMapper {
                 .description(service.getDescription())
                 .templatePath(service.getTemplatePath())
                 .version(service.getVersion())
+                .createdAt(service.getCreatedAt())
+                .updatedAt(service.getUpdatedAt())
                 .build();
     }
 

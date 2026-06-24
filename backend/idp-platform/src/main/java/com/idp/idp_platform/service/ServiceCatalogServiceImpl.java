@@ -2,6 +2,7 @@ package com.idp.idp_platform.service;
 
 import com.idp.idp_platform.dto.ServiceCatalogDto;
 import com.idp.idp_platform.entity.ServiceCatalog;
+import com.idp.idp_platform.exception.ServiceCatalogNotFoundException;
 import com.idp.idp_platform.mapper.ServiceCatalogMapper;
 import com.idp.idp_platform.repository.ServiceCatalogRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class ServiceCatalogServiceImpl implements ServiceCatalogService {
 
         ServiceCatalog service = mapper.toEntity(dto);
 
-        return mapper.toDto(
-                repository.save(service)
-        );
+        ServiceCatalog savedService = repository.save(service);
+
+        return mapper.toDto(savedService);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class ServiceCatalogServiceImpl implements ServiceCatalogService {
 
         ServiceCatalog service = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Service not found"));
+                        new ServiceCatalogNotFoundException(id));
 
         return mapper.toDto(service);
     }
@@ -50,23 +51,23 @@ public class ServiceCatalogServiceImpl implements ServiceCatalogService {
 
         ServiceCatalog service = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Service not found"));
+                        new ServiceCatalogNotFoundException(id));
 
         service.setName(dto.getName());
         service.setDescription(dto.getDescription());
         service.setTemplatePath(dto.getTemplatePath());
         service.setVersion(dto.getVersion());
 
-        return mapper.toDto(
-                repository.save(service)
-        );
+        ServiceCatalog updatedService = repository.save(service);
+
+        return mapper.toDto(updatedService);
     }
 
     @Override
     public void deleteService(Long id) {
 
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Service not found");
+            throw new ServiceCatalogNotFoundException(id);
         }
 
         repository.deleteById(id);

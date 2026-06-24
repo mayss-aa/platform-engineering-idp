@@ -2,9 +2,10 @@ package com.idp.idp_platform.service;
 
 import com.idp.idp_platform.dto.ProvisionRequestDto;
 import com.idp.idp_platform.entity.ProvisionRequest;
+import com.idp.idp_platform.entity.ProvisionStatus;
 import com.idp.idp_platform.entity.ServiceCatalog;
 import com.idp.idp_platform.entity.User;
-import com.idp.idp_platform.entity.enums.RequestStatus;
+import com.idp.idp_platform.exception.ProvisionRequestNotFoundException;
 import com.idp.idp_platform.mapper.ProvisionRequestMapper;
 import com.idp.idp_platform.repository.ProvisionRequestRepository;
 import com.idp.idp_platform.repository.ServiceCatalogRepository;
@@ -12,7 +13,6 @@ import com.idp.idp_platform.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,24 +33,18 @@ public class ProvisionRequestServiceImpl
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
 
-        ServiceCatalog catalog =
-                catalogRepository.findById(
-                                dto.getServiceCatalogId())
-                        .orElseThrow(() ->
-                                new RuntimeException("Catalog not found"));
+        ServiceCatalog catalog = catalogRepository
+                .findById(dto.getServiceCatalogId())
+                .orElseThrow(() ->
+                        new RuntimeException("Service Catalog not found"));
 
-        ProvisionRequest request =
-                ProvisionRequest.builder()
-                        .status(
-                                RequestStatus.valueOf(
-                                        dto.getStatus()
-                                )
-                        )
-                        .parameters(dto.getParameters())
-                        .createdAt(LocalDateTime.now())
-                        .user(user)
-                        .serviceCatalog(catalog)
-                        .build();
+        ProvisionRequest request = ProvisionRequest.builder()
+                .requestedBy(user)
+                .serviceCatalog(catalog)
+                .environment(dto.getEnvironment())
+                .justification(dto.getJustification())
+                .status(ProvisionStatus.PENDING)
+                .build();
 
         return mapper.toDto(
                 requestRepository.save(request)
@@ -69,19 +63,46 @@ public class ProvisionRequestServiceImpl
     @Override
     public ProvisionRequestDto getRequestById(Long id) {
 
-        return requestRepository.findById(id)
-                .map(mapper::toDto)
+        ProvisionRequest request = requestRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException(
-                                "Request not found"));
+                        new ProvisionRequestNotFoundException(id));
+
+        return mapper.toDto(request);
+    }
+
+    @Override
+    public ProvisionRequestDto approveRequest(Long id) {
+
+        ProvisionRequest request = requestRepository.findById(id)
+                .orElseThrow(() ->
+                        new ProvisionRequestNotFoundException(id));
+
+        request.setStatus(ProvisionStatus.APPROVED);
+
+        return mapper.toDto(
+                requestRepository.save(request)
+        );
+    }
+
+    @Override
+    public ProvisionRequestDto rejectRequest(Long id) {
+
+        ProvisionRequest request = requestRepository.findById(id)
+                .orElseThrow(() ->
+                        new ProvisionRequestNotFoundException(id));
+
+        request.setStatus(ProvisionStatus.REJECTED);
+
+        return mapper.toDto(
+                requestRepository.save(request)
+        );
     }
 
     @Override
     public void deleteRequest(Long id) {
 
         if (!requestRepository.existsById(id)) {
-            throw new RuntimeException(
-                    "Request not found");
+            throw new ProvisionRequestNotFoundException(id);
         }
 
         requestRepository.deleteById(id);

@@ -1,4 +1,11 @@
 package com.idp.idp_platform.entity;
 
-public class ProvisionStatus {
+public enum ProvisionStatus {
+
+    PENDING,
+    APPROVED,
+    REJECTED,
+    IN_PROGRESS,
+    COMPLETED,
+    FAILED
 }

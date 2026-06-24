@@ -2,7 +2,9 @@ package com.idp.idp_platform.controller;
 
 import com.idp.idp_platform.dto.ServiceCatalogDto;
 import com.idp.idp_platform.service.ServiceCatalogService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,19 +17,22 @@ public class ServiceCatalogController {
     private final ServiceCatalogService serviceCatalogService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('MANAGE_SERVICE_CATALOG')")
     public ServiceCatalogDto createService(
-            @RequestBody ServiceCatalogDto dto) {
+            @Valid @RequestBody ServiceCatalogDto dto) {
 
         return serviceCatalogService.createService(dto);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('CREATE','MANAGE_SERVICE_CATALOG')")
     public List<ServiceCatalogDto> getAllServices() {
 
         return serviceCatalogService.getAllServices();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('CREATE','MANAGE_SERVICE_CATALOG')")
     public ServiceCatalogDto getServiceById(
             @PathVariable Long id) {
 
@@ -35,14 +40,16 @@ public class ServiceCatalogController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('MANAGE_SERVICE_CATALOG')")
     public ServiceCatalogDto updateService(
             @PathVariable Long id,
-            @RequestBody ServiceCatalogDto dto) {
+            @Valid @RequestBody ServiceCatalogDto dto) {
 
         return serviceCatalogService.updateService(id, dto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('MANAGE_SERVICE_CATALOG')")
     public void deleteService(
             @PathVariable Long id) {
 

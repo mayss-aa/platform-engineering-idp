@@ -12,5 +12,9 @@ public interface ProvisionRequestService {
 
     ProvisionRequestDto getRequestById(Long id);
 
+    ProvisionRequestDto approveRequest(Long id);
+
+    ProvisionRequestDto rejectRequest(Long id);
+
     void deleteRequest(Long id);
 }

@@ -21,15 +21,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TeamRepository teamRepository;
     private final RoleRepository roleRepository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDto createUser(UserDto dto) {
 
         Team team = teamRepository.findById(dto.getTeamId())
-                .orElseThrow(() -> new RuntimeException("Team not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Team not found"));
 
         Role role = roleRepository.findById(dto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("Role not found"));
 
         User user = User.builder()
                 .firstName(dto.getFirstName())
@@ -42,7 +45,7 @@ public class UserServiceImpl implements UserService {
                 .role(role)
                 .build();
 
-        return UserMapper.toDto(
+        return userMapper.toDto(
                 userRepository.save(user)
         );
     }
@@ -52,16 +55,54 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.findAll()
                 .stream()
-                .map(UserMapper::toDto)
+                .map(userMapper::toDto)
                 .toList();
     }
 
     @Override
     public UserDto getUserById(Long id) {
 
-        return userRepository.findById(id)
-                .map(UserMapper::toDto)
+        User user = userRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
+
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public UserDto updateUser(Long id, UserDto dto) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        Team team = teamRepository.findById(dto.getTeamId())
+                .orElseThrow(() ->
+                        new RuntimeException("Team not found"));
+
+        Role role = roleRepository.findById(dto.getRoleId())
+                .orElseThrow(() ->
+                        new RuntimeException("Role not found"));
+
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setStatus(dto.getStatus());
+        user.setTeam(team);
+        user.setRole(role);
+
+        return userMapper.toDto(
+                userRepository.save(user)
+        );
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+
+        userRepository.deleteById(id);
     }
 }

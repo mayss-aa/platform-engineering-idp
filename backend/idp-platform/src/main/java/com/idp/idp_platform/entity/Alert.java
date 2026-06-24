@@ -25,4 +25,7 @@ public class Alert {
     private String status;
 
     private LocalDateTime createdAt;
+
+    public static class ProvisionRequest {
+    }
 }

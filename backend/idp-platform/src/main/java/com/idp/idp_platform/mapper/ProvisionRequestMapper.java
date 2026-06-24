@@ -11,18 +11,21 @@ public class ProvisionRequestMapper {
 
         return ProvisionRequestDto.builder()
                 .id(request.getId())
-                .status(request.getStatus().name())
-                .parameters(request.getParameters())
-                .userId(
-                        request.getUser() != null
-                                ? request.getUser().getId()
-                                : null
-                )
                 .serviceCatalogId(
                         request.getServiceCatalog() != null
                                 ? request.getServiceCatalog().getId()
                                 : null
                 )
+                .userId(
+                        request.getRequestedBy() != null
+                                ? request.getRequestedBy().getId()
+                                : null
+                )
+                .environment(request.getEnvironment())
+                .justification(request.getJustification())
+                .status(request.getStatus().name())
+                .createdAt(request.getCreatedAt())
+                .updatedAt(request.getUpdatedAt())
                 .build();
     }
 }

@@ -1,6 +1,10 @@
 package com.idp.idp_platform.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,11 +15,21 @@ public class ProvisionRequestDto {
 
     private Long id;
 
-    private String status;
+    @NotNull(message = "Service Catalog ID is required")
+    private Long serviceCatalogId;
 
-    private String parameters;
-
+    @NotNull(message = "User ID is required")
     private Long userId;
 
-    private Long serviceCatalogId;
+    @NotBlank(message = "Environment is required")
+    private String environment;
+
+    @NotBlank(message = "Justification is required")
+    private String justification;
+
+    private String status;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }

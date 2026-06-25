@@ -1,8 +1,10 @@
 package com.idp.idp_platform.entity.enums;
 
 public enum DeploymentStatus {
+
     PENDING,
-    RUNNING,
+    DEPLOYING,
     SUCCESS,
-    FAILED
+    FAILED,
+    CANCELLED
 }

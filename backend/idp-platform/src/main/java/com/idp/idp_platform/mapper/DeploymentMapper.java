@@ -11,15 +11,31 @@ public class DeploymentMapper {
 
         return DeploymentDto.builder()
                 .id(deployment.getId())
+                .name(deployment.getName())
+                .environment(deployment.getEnvironment())
                 .status(deployment.getStatus().name())
+                .startedAt(deployment.getStartedAt())
+                .completedAt(deployment.getCompletedAt())
+                .deploymentLog(deployment.getDeploymentLog())
                 .terraformPlan(deployment.getTerraformPlan())
                 .terraformState(deployment.getTerraformState())
-                .requestId(
-                        deployment.getRequest() != null
-                                ? deployment.getRequest().getId()
+                .provisionRequestId(
+                        deployment.getProvisionRequest() != null
+                                ? deployment.getProvisionRequest().getId()
                                 : null
                 )
                 .build();
     }
 
+    public Deployment toEntity(DeploymentDto dto) {
+
+        return Deployment.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .environment(dto.getEnvironment())
+                .terraformPlan(dto.getTerraformPlan())
+                .terraformState(dto.getTerraformState())
+                .deploymentLog(dto.getDeploymentLog())
+                .build();
+    }
 }

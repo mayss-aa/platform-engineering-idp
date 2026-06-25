@@ -42,6 +42,9 @@ public class ProvisionRequest {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @OneToOne(mappedBy = "provisionRequest", fetch = FetchType.LAZY)
+    private Deployment deployment;
+
     @PrePersist
     public void prePersist() {
 

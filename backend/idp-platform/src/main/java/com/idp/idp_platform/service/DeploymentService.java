@@ -12,6 +12,10 @@ public interface DeploymentService {
 
     DeploymentDto getDeploymentById(Long id);
 
-    void deleteDeployment(Long id);
+    DeploymentDto updateDeploymentStatus(
+            Long id,
+            String status
+    );
 
+    void deleteDeployment(Long id);
 }

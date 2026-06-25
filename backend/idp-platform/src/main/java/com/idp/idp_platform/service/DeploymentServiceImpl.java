@@ -15,30 +15,35 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DeploymentServiceImpl implements DeploymentService {
+public class DeploymentServiceImpl
+        implements DeploymentService {
 
     private final DeploymentRepository deploymentRepository;
     private final ProvisionRequestRepository requestRepository;
     private final DeploymentMapper mapper;
 
     @Override
-    public DeploymentDto createDeployment(DeploymentDto dto) {
+    public DeploymentDto createDeployment(
+            DeploymentDto dto) {
 
         ProvisionRequest request =
-                requestRepository.findById(dto.getRequestId())
+                requestRepository.findById(dto.getProvisionRequestId())
                         .orElseThrow(() ->
-                                new RuntimeException("Request not found"));
+                                new RuntimeException("Provision Request not found"));
+
+        if (deploymentRepository.existsByProvisionRequest(request)) {
+            throw new RuntimeException(
+                    "Deployment already exists for this request");
+        }
 
         Deployment deployment = Deployment.builder()
-                .status(
-                        DeploymentStatus.valueOf(
-                                dto.getStatus()
-                        )
-                )
+                .name(dto.getName())
+                .environment(dto.getEnvironment())
+                .status(DeploymentStatus.PENDING)
+                .deploymentLog(dto.getDeploymentLog())
                 .terraformPlan(dto.getTerraformPlan())
                 .terraformState(dto.getTerraformState())
-                .createdAt(LocalDateTime.now())
-                .request(request)
+                .provisionRequest(request)
                 .build();
 
         return mapper.toDto(
@@ -58,10 +63,38 @@ public class DeploymentServiceImpl implements DeploymentService {
     @Override
     public DeploymentDto getDeploymentById(Long id) {
 
-        return deploymentRepository.findById(id)
-                .map(mapper::toDto)
-                .orElseThrow(() ->
-                        new RuntimeException("Deployment not found"));
+        Deployment deployment =
+                deploymentRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException("Deployment not found"));
+
+        return mapper.toDto(deployment);
+    }
+
+    @Override
+    public DeploymentDto updateDeploymentStatus(
+            Long id,
+            String status) {
+
+        Deployment deployment =
+                deploymentRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException("Deployment not found"));
+
+        deployment.setStatus(
+                DeploymentStatus.valueOf(status)
+        );
+
+        if (deployment.getStatus() == DeploymentStatus.SUCCESS
+                || deployment.getStatus() == DeploymentStatus.FAILED
+                || deployment.getStatus() == DeploymentStatus.CANCELLED) {
+
+            deployment.setCompletedAt(LocalDateTime.now());
+        }
+
+        return mapper.toDto(
+                deploymentRepository.save(deployment)
+        );
     }
 
     @Override
@@ -73,5 +106,4 @@ public class DeploymentServiceImpl implements DeploymentService {
 
         deploymentRepository.deleteById(id);
     }
-
 }

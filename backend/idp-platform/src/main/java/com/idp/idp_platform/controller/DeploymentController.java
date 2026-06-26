@@ -2,6 +2,7 @@ package com.idp.idp_platform.controller;
 
 import com.idp.idp_platform.dto.DeploymentDto;
 import com.idp.idp_platform.service.DeploymentService;
+import com.idp.idp_platform.terraform.model.TerraformResult;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,6 +51,14 @@ public class DeploymentController {
                 id,
                 body.get("status")
         );
+    }
+
+    @PostMapping("/{id}/terraform/plan")
+    @PreAuthorize("hasAuthority('MANAGE_DEPLOYMENTS')")
+    public TerraformResult executeTerraformPlan(
+            @PathVariable Long id) {
+
+        return deploymentService.executeTerraformPlan(id);
     }
 
     @DeleteMapping("/{id}")

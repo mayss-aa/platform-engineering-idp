@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: idp-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: idp_platform
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d idp_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - idp-network
+
+
+  backend:
+    container_name: idp-backend
+
+    build:
+      context: ./backend/idp-platform
+      dockerfile: Dockerfile
+
+    image: idp-backend:1.0
+
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/idp_platform
+      DB_USERNAME: postgres
+      DB_PASSWORD: 1234
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - idp-network
+
+
+networks:
+  idp-network:
+    driver: bridge
+
+
+volumes:
+  postgres-data:

@@ -1,11 +1,37 @@
 import { Routes } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
 
 /**
- * Root router configuration.
- * All 19 feature routes will be registered here in Task 12.
- * This placeholder ensures the project compiles from Task 1.
+ * Root router configuration — Task 2 shell routes.
+ *
+ * The full 19-module lazy route table is implemented in Task 12.
+ * The authenticated shell (LayoutComponent) wraps all content routes,
+ * providing the top navigation and sidebar for every page.
  */
 export const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: 'dashboard' }
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/home/home.page').then((m) => m.HomePageComponent),
+        title: 'Overview — IDP Platform',
+      },
+    ],
+  },
+  // Catch-all — render home page until /404 is implemented in Task 12
+  {
+    path: '**',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/home/home.page').then((m) => m.HomePageComponent),
+        title: 'Overview — IDP Platform',
+      },
+    ],
+  },
 ];

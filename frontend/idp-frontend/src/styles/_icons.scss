@@ -1,0 +1,44 @@
+// Material Symbols Rounded — variable font
+// Loaded via Google Fonts CDN. font-display: block prevents FOIT.
+// Usage: <span class="material-symbols-rounded">home</span>
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block');
+
+.material-symbols-rounded {
+  font-family: var(--font-family-icon);
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--font-size-md);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+
+  &.icon-sm {
+    font-size: var(--font-size-sm);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  }
+
+  &.icon-md {
+    font-size: var(--font-size-md);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  &.icon-lg {
+    font-size: var(--font-size-xl);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+  }
+
+  &.icon-xl {
+    font-size: var(--font-size-2xl);
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+
+  &.icon-filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+}

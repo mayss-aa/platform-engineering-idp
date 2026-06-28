@@ -1,0 +1,139 @@
+// =============================================================================
+// Design Token System — Dark Theme overrides
+// Applied via [data-theme="dark"] on the <html> element.
+// Structural tokens (spacing, radius, z-index, motion) are not redefined.
+// =============================================================================
+
+[data-theme='dark'] {
+  // ---------------------------------------------------------------------------
+  // Surface hierarchy — dark theme
+  // ---------------------------------------------------------------------------
+  --color-background:       #0d1117;
+  --color-surface-0:        #0d1117;   // page canvas
+  --color-surface-1:        #161b22;   // cards, panels
+  --color-surface-2:        #21262d;   // inset sections
+  --color-surface-3:        #30363d;   // hover / selected row
+  --color-surface-overlay:  rgba(0, 0, 0, 0.72);
+  --color-surface-tooltip:  #161b22;
+
+  // ---------------------------------------------------------------------------
+  // Sidebar — remains dark-on-dark; slight shift to distinguish
+  // ---------------------------------------------------------------------------
+  --color-sidebar-bg:         #010409;
+  --color-sidebar-text:       #e6edf3;
+  --color-sidebar-text-muted: #7d8590;
+  --color-sidebar-active-bg:  var(--color-brand-500);
+  --color-sidebar-active-text:#fff;
+  --color-sidebar-hover-bg:   rgba(255, 255, 255, 0.06);
+  --color-sidebar-border:     rgba(255, 255, 255, 0.04);
+  --color-sidebar-group-label:#7d8590;
+
+  // ---------------------------------------------------------------------------
+  // Top navigation bar
+  // ---------------------------------------------------------------------------
+  --color-topnav-bg:          #161b22;
+  --color-topnav-border:      #30363d;
+  --color-topnav-text:        #e6edf3;
+  --color-topnav-text-muted:  #7d8590;
+
+  // ---------------------------------------------------------------------------
+  // Text colours
+  // ---------------------------------------------------------------------------
+  --color-text-primary:   #e6edf3;
+  --color-text-secondary: #8d96a0;
+  --color-text-tertiary:  #6e7681;
+  --color-text-disabled:  #484f58;
+  --color-text-inverse:   #0d1117;
+  --color-text-link:      #58a6ff;
+  --color-text-link-hover:#79c0ff;
+
+  // ---------------------------------------------------------------------------
+  // Border colours
+  // ---------------------------------------------------------------------------
+  --color-border-default: #30363d;
+  --color-border-muted:   #21262d;
+  --color-border-strong:  #484f58;
+  --color-border-focus:   #388bfd;
+  --color-border-error:   #f85149;
+
+  // ---------------------------------------------------------------------------
+  // Semantic status colours — dark variants
+  // ---------------------------------------------------------------------------
+  --color-success:       #2ea043;
+  --color-success-light: #1b2b27;
+  --color-success-dark:  #56d364;
+  --color-warning:       #d29922;
+  --color-warning-light: #2b2318;
+  --color-warning-dark:  #ffa657;
+  --color-error:         #f85149;
+  --color-error-light:   #2b1a1c;
+  --color-error-dark:    #ff7b72;
+  --color-info:          #388bfd;
+  --color-info-light:    #1a2233;
+  --color-info-dark:     #79c0ff;
+
+  // ---------------------------------------------------------------------------
+  // Status badge colours — dark variants
+  // ---------------------------------------------------------------------------
+  --color-badge-running-bg:    #1a2540;
+  --color-badge-running-text:  #79c0ff;
+  --color-badge-success-bg:    #1b2b27;
+  --color-badge-success-text:  #56d364;
+  --color-badge-failed-bg:     #2b1a1c;
+  --color-badge-failed-text:   #ff7b72;
+  --color-badge-pending-bg:    #2b2318;
+  --color-badge-pending-text:  #ffa657;
+  --color-badge-idle-bg:       #21262d;
+  --color-badge-idle-text:     #8d96a0;
+  --color-badge-cancelled-bg:  #21262d;
+  --color-badge-cancelled-text:#8d96a0;
+  --color-badge-queued-bg:     #221f33;
+  --color-badge-queued-text:   #d2a8ff;
+  --color-badge-healthy-bg:    #1b2b27;
+  --color-badge-healthy-text:  #56d364;
+  --color-badge-degraded-bg:   #2b2318;
+  --color-badge-degraded-text: #ffa657;
+  --color-badge-unavailable-bg:#2b1a1c;
+  --color-badge-unavailable-text:#ff7b72;
+  --color-badge-running-k8s-bg:   #1a2540;
+  --color-badge-running-k8s-text: #79c0ff;
+  --color-badge-stopped-bg:       #21262d;
+  --color-badge-stopped-text:     #8d96a0;
+  --color-badge-exited-bg:        #2b1a1c;
+  --color-badge-exited-text:      #ff7b72;
+  --color-badge-restarting-bg:    #2b2318;
+  --color-badge-restarting-text:  #ffa657;
+  --color-badge-approved-bg:      #1b2b27;
+  --color-badge-approved-text:    #56d364;
+  --color-badge-rejected-bg:      #2b1a1c;
+  --color-badge-rejected-text:    #ff7b72;
+  --color-badge-provisioned-bg:   #1a2540;
+  --color-badge-provisioned-text: #79c0ff;
+  --color-badge-p1-bg:   #2b1a1c;
+  --color-badge-p1-text: #ff7b72;
+  --color-badge-p2-bg:   #2b2014;
+  --color-badge-p2-text: #ffa657;
+  --color-badge-p3-bg:   #2b2318;
+  --color-badge-p3-text: #ffd700;
+  --color-badge-p4-bg:   #1a2540;
+  --color-badge-p4-text: #79c0ff;
+  --color-badge-new-bg:           #1a2540;
+  --color-badge-new-text:         #79c0ff;
+  --color-badge-acknowledged-bg:  #2b2318;
+  --color-badge-acknowledged-text:#ffa657;
+  --color-badge-applied-bg:       #1b2b27;
+  --color-badge-applied-text:     #56d364;
+  --color-badge-dismissed-bg:     #21262d;
+  --color-badge-dismissed-text:   #6e7681;
+
+  // ---------------------------------------------------------------------------
+  // Shadows — adjusted alpha for dark backgrounds
+  // ---------------------------------------------------------------------------
+  --shadow-xs:    0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-sm:    0 1px 3px 0 rgba(0, 0, 0, 0.40), 0 1px 2px -1px rgba(0, 0, 0, 0.40);
+  --shadow-md:    0 4px 6px -1px rgba(0, 0, 0, 0.40), 0 2px 4px -2px rgba(0, 0, 0, 0.40);
+  --shadow-lg:    0 10px 15px -3px rgba(0, 0, 0, 0.50), 0 4px 6px -4px rgba(0, 0, 0, 0.50);
+  --shadow-xl:    0 20px 25px -5px rgba(0, 0, 0, 0.50), 0 8px 10px -6px rgba(0, 0, 0, 0.50);
+  --shadow-2xl:   0 25px 50px -12px rgba(0, 0, 0, 0.70);
+  --shadow-focus: 0 0 0 3px rgba(56, 139, 253, 0.40);
+}

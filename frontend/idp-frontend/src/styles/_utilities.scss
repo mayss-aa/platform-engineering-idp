@@ -1,0 +1,201 @@
+// =============================================================================
+// Utility Classes — spacing, display, overflow, accessibility helpers.
+// All values reference design tokens.
+// =============================================================================
+
+// ---------------------------------------------------------------------------
+// Spacing — margin / padding utilities (subset for common cases)
+// ---------------------------------------------------------------------------
+.m-0   { margin: var(--space-0); }
+.m-2   { margin: var(--space-2); }
+.m-4   { margin: var(--space-4); }
+.mx-auto { margin-inline: auto; }
+.mt-0  { margin-top: var(--space-0); }
+.mt-2  { margin-top: var(--space-2); }
+.mt-4  { margin-top: var(--space-4); }
+.mt-6  { margin-top: var(--space-6); }
+.mb-2  { margin-bottom: var(--space-2); }
+.mb-4  { margin-bottom: var(--space-4); }
+.mb-6  { margin-bottom: var(--space-6); }
+.ml-2  { margin-left: var(--space-2); }
+.mr-2  { margin-right: var(--space-2); }
+
+.p-0   { padding: var(--space-0); }
+.p-2   { padding: var(--space-2); }
+.p-4   { padding: var(--space-4); }
+.p-6   { padding: var(--space-6); }
+.px-2  { padding-inline: var(--space-2); }
+.px-4  { padding-inline: var(--space-4); }
+.py-2  { padding-block: var(--space-2); }
+.py-4  { padding-block: var(--space-4); }
+
+// ---------------------------------------------------------------------------
+// Display
+// ---------------------------------------------------------------------------
+.d-none         { display: none !important; }
+.d-block        { display: block; }
+.d-flex         { display: flex; }
+.d-grid         { display: grid; }
+.d-inline       { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-inline-flex  { display: inline-flex; }
+
+// Responsive display helpers
+.d-none-mobile {
+  @media (width <= 767px) { display: none !important; }
+}
+
+.d-none-tablet {
+  @media (width >= 768px) and (width <= 1279px) { display: none !important; }
+}
+
+.d-none-desktop {
+  @media (width >= 1280px) { display: none !important; }
+}
+
+// ---------------------------------------------------------------------------
+// Overflow
+// ---------------------------------------------------------------------------
+.overflow-hidden   { overflow: hidden; }
+.overflow-auto     { overflow: auto; }
+.overflow-x-auto   { overflow-x: auto; }
+.overflow-y-auto   { overflow-y: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
+
+// ---------------------------------------------------------------------------
+// Position
+// ---------------------------------------------------------------------------
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed    { position: fixed; }
+.sticky   { position: sticky; }
+
+// ---------------------------------------------------------------------------
+// Width / height
+// ---------------------------------------------------------------------------
+.w-full    { width: 100%; }
+.h-full    { height: 100%; }
+.min-w-0   { min-width: 0; }      // flex item text truncation fix
+.min-h-screen { min-height: 100vh; }
+
+// ---------------------------------------------------------------------------
+// Border radius
+// ---------------------------------------------------------------------------
+.rounded-none { border-radius: var(--radius-none); }
+.rounded-sm   { border-radius: var(--radius-sm); }
+.rounded-md   { border-radius: var(--radius-md); }
+.rounded-lg   { border-radius: var(--radius-lg); }
+.rounded-xl   { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+// ---------------------------------------------------------------------------
+// Shadow
+// ---------------------------------------------------------------------------
+.shadow-none { box-shadow: var(--shadow-none); }
+.shadow-xs   { box-shadow: var(--shadow-xs); }
+.shadow-sm   { box-shadow: var(--shadow-sm); }
+.shadow-md   { box-shadow: var(--shadow-md); }
+.shadow-lg   { box-shadow: var(--shadow-lg); }
+
+// ---------------------------------------------------------------------------
+// Background surface
+// ---------------------------------------------------------------------------
+.bg-surface-0  { background-color: var(--color-surface-0); }
+.bg-surface-1  { background-color: var(--color-surface-1); }
+.bg-surface-2  { background-color: var(--color-surface-2); }
+.bg-primary    { background-color: var(--color-primary); }
+.bg-success    { background-color: var(--color-success-light); }
+.bg-warning    { background-color: var(--color-warning-light); }
+.bg-error      { background-color: var(--color-error-light); }
+
+// ---------------------------------------------------------------------------
+// Cursor
+// ---------------------------------------------------------------------------
+.cursor-pointer  { cursor: pointer; }
+.cursor-default  { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+// ---------------------------------------------------------------------------
+// Pointer events
+// ---------------------------------------------------------------------------
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+
+// ---------------------------------------------------------------------------
+// User select
+// ---------------------------------------------------------------------------
+.select-none { user-select: none; }
+.select-all  { user-select: all; }
+
+// ---------------------------------------------------------------------------
+// Accessibility helpers
+// ---------------------------------------------------------------------------
+
+/// Screen-reader only — visually hidden but present in the accessibility tree
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/// Reveal on focus — companion to .sr-only for skip links
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: var(--space-2) var(--space-4);
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+// ---------------------------------------------------------------------------
+// Divider
+// ---------------------------------------------------------------------------
+.idp-divider {
+  border: none;
+  border-top: 1px solid var(--color-border-default);
+  margin: var(--space-4) 0;
+}
+
+// ---------------------------------------------------------------------------
+// Skeleton loading placeholder
+// ---------------------------------------------------------------------------
+.idp-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-md);
+  animation: shimmer 1.5s infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background: var(--color-surface-2);
+  }
+}
+
+.idp-skeleton--text {
+  height: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+}
+
+.idp-skeleton--title {
+  height: var(--font-size-xl);
+  border-radius: var(--radius-sm);
+}
+
+.idp-skeleton--circle {
+  border-radius: var(--radius-full);
+}

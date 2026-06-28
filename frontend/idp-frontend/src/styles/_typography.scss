@@ -1,0 +1,149 @@
+// =============================================================================
+// Typography — Inter variable font + type scale
+// All size/weight values reference tokens. No hardcoded numeric values.
+// =============================================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+// ---------------------------------------------------------------------------
+// Base body typography
+// ---------------------------------------------------------------------------
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-sm);   // 14px — dense enterprise UI
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+}
+
+// ---------------------------------------------------------------------------
+// Heading scale
+// ---------------------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-md); }
+
+// ---------------------------------------------------------------------------
+// Paragraph & inline text
+// ---------------------------------------------------------------------------
+p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+small {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+// ---------------------------------------------------------------------------
+// Links
+// ---------------------------------------------------------------------------
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+  transition: var(--transition-color);
+
+  &:hover {
+    color: var(--color-text-link-hover);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Code / monospace
+// ---------------------------------------------------------------------------
+code, kbd, samp, pre {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+}
+
+code {
+  padding: var(--space-0-5) var(--space-1);
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border-muted);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+pre {
+  background-color: var(--color-log-bg);
+  color: var(--color-log-text);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  margin: 0;
+
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Utility typography classes
+// ---------------------------------------------------------------------------
+.text-xs        { font-size: var(--font-size-xs); }
+.text-sm        { font-size: var(--font-size-sm); }
+.text-md        { font-size: var(--font-size-md); }
+.text-lg        { font-size: var(--font-size-lg); }
+.text-xl        { font-size: var(--font-size-xl); }
+.text-2xl       { font-size: var(--font-size-2xl); }
+
+.text-primary   { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary  { color: var(--color-text-tertiary); }
+.text-disabled  { color: var(--color-text-disabled); }
+.text-inverse   { color: var(--color-text-inverse); }
+.text-link      { color: var(--color-text-link); }
+.text-success   { color: var(--color-success); }
+.text-warning   { color: var(--color-warning); }
+.text-error     { color: var(--color-error); }
+
+.font-regular   { font-weight: var(--font-weight-regular); }
+.font-medium    { font-weight: var(--font-weight-medium); }
+.font-semibold  { font-weight: var(--font-weight-semibold); }
+.font-bold      { font-weight: var(--font-weight-bold); }
+
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.text-mono {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}

@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: idp-frontend
+  namespace: idp-platform
+  labels:
+    app: idp-frontend
+    component: frontend
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header X-Frame-Options "DENY" always;
+      add_header X-Content-Type-Options "nosniff" always;
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - idp.example.com  # Replace with your actual domain
+      secretName: idp-frontend-tls  # TLS secret placeholder
+  rules:
+    - host: idp.example.com  # Replace with your actual domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: idp-frontend
+                port:
+                  number: 80

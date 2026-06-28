@@ -8,7 +8,7 @@ Implement the Angular 20 Enterprise IDP Frontend as a progressive single-page ap
 
 ## Tasks
 
-- [ ] 1. Project Bootstrap, Folder Architecture & Build Infrastructure
+- [x] 1. Project Bootstrap, Folder Architecture & Build Infrastructure
   - Initialize Angular 20 project with standalone components, strict TypeScript, esbuild builder, and Jest test runner
   - Create the complete folder structure: `core/`, `shared/`, `features/` (×19 modules), `layout/`, `pages/`, `src/styles/`, `src/environments/`, `docker/`, `k8s/`
   - Each of the 19 feature module directories must contain: `components/`, `pages/`, `services/`, `models/`, `store/`, `mocks/`

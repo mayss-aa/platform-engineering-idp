@@ -1,0 +1,209 @@
+// =============================================================================
+// Angular Material M3 Theme — Token Bindings
+// Binds the IDP design token system to Angular Material's theming API.
+// CSS custom properties propagate theme changes; no second theme definition.
+// =============================================================================
+
+@use '@angular/material' as mat;
+
+// ---------------------------------------------------------------------------
+// Include Material core styles (typography, elevation, etc.) once globally
+// ---------------------------------------------------------------------------
+@include mat.core;
+
+// ---------------------------------------------------------------------------
+// Define an M3 theme using brand token hex values.
+// Note: Angular Material palette functions require static colour maps at
+// build time — CSS custom properties cannot be used as palette arguments.
+// We mirror token hex values here as SCSS variables only for Material.
+// In components, colours always come from CSS custom properties (the tokens).
+// ---------------------------------------------------------------------------
+
+// Primary — Capgemini blue (mirrors --color-brand-500)
+$idp-primary-palette: mat.m2-define-palette(
+  (
+    50:  #e8f0fe,
+    100: #c5d8fd,
+    200: #9fbdfb,
+    300: #74a0f8,
+    400: #4f88f6,
+    500: #1671f0,
+    600: #1261d4,
+    700: #0d4db8,
+    800: #093b9c,
+    900: #042880,
+    contrast: (
+      50:  rgba(0, 0, 0, 0.87),
+      100: rgba(0, 0, 0, 0.87),
+      200: rgba(0, 0, 0, 0.87),
+      300: rgba(0, 0, 0, 0.87),
+      400: rgba(0, 0, 0, 0.87),
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+    )
+  ),
+  500,  /* default hue*/
+  300,  /* lighter hue*/
+  700   /* darker hue*/
+);
+
+// Accent — Azure teal (mirrors --color-accent)
+$idp-accent-palette: mat.m2-define-palette(
+  (
+    50:  #e0f7fa,
+    100: #b2ebf2,
+    200: #80deea,
+    300: #4dd0e1,
+    400: #26c6da,
+    500: #00b4d8,
+    600: #0097a7,
+    700: #00838f,
+    800: #006064,
+    900: #004d40,
+    contrast: (
+      50:  rgba(0, 0, 0, 0.87),
+      100: rgba(0, 0, 0, 0.87),
+      200: rgba(0, 0, 0, 0.87),
+      300: rgba(0, 0, 0, 0.87),
+      400: rgba(0, 0, 0, 0.87),
+      500: white,
+      600: white,
+      700: white,
+      800: white,
+      900: white,
+    )
+  ),
+  500,
+  300,
+  700
+);
+
+// Warn — error red (mirrors --color-error)
+$idp-warn-palette: mat.m2-define-palette(mat.$m2-red-palette, 700);
+
+// ---------------------------------------------------------------------------
+// Light theme
+// ---------------------------------------------------------------------------
+$idp-light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $idp-primary-palette,
+      accent:  $idp-accent-palette,
+      warn:    $idp-warn-palette,
+    ),
+    typography: mat.m2-define-typography-config(
+      $font-family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    ),
+    density: -1,  /* compact density — enterprise dense UI*/
+  )
+);
+
+// ---------------------------------------------------------------------------
+// Dark theme
+// ---------------------------------------------------------------------------
+$idp-dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $idp-primary-palette,
+      accent:  $idp-accent-palette,
+      warn:    $idp-warn-palette,
+    ),
+    typography: mat.m2-define-typography-config(
+      $font-family: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    ),
+    density: -1,
+  )
+);
+
+// ---------------------------------------------------------------------------
+// Apply light theme globally
+// ---------------------------------------------------------------------------
+@include mat.all-component-themes($idp-light-theme);
+
+// ---------------------------------------------------------------------------
+// Apply dark theme under [data-theme="dark"]
+// ---------------------------------------------------------------------------
+[data-theme='dark'] {
+  @include mat.all-component-colors($idp-dark-theme);
+}
+
+// ---------------------------------------------------------------------------
+// Global Material overrides — align with design token system
+// Components should not reference hex values; all customisation via tokens.
+// ---------------------------------------------------------------------------
+
+// Override Material card to use surface tokens
+.mat-mdc-card {
+  --mdc-elevated-card-container-color: var(--color-surface-1);
+  --mdc-outlined-card-container-color: var(--color-surface-1);
+
+  border-radius: var(--radius-card) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+// Override Material button radius
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-flat-button {
+  border-radius: var(--radius-button) !important;
+}
+
+// Override Material form field
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: var(--color-surface-2);
+  --mdc-outlined-text-field-outline-color: var(--color-border-default);
+  --mdc-outlined-text-field-focus-outline-color: var(--color-border-focus);
+}
+
+// Override Material dialog
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--color-surface-1);
+
+  border-radius: var(--radius-dialog) !important;
+  box-shadow: var(--shadow-dialog) !important;
+}
+
+// Override Material table
+.mat-mdc-table {
+  background-color: var(--color-surface-1);
+
+  --mat-table-background-color: var(--color-surface-1);
+  --mat-table-header-headline-color: var(--color-text-secondary);
+  --mat-table-row-item-label-text-color: var(--color-text-primary);
+}
+
+// Override Material paginator
+.mat-mdc-paginator {
+  background-color: var(--color-surface-1);
+  color: var(--color-text-secondary);
+}
+
+// Override Material tooltip
+.mdc-tooltip__surface {
+  background-color: var(--color-surface-tooltip) !important;
+  color: var(--color-text-inverse) !important;
+  border-radius: var(--radius-tooltip) !important;
+  box-shadow: var(--shadow-tooltip) !important;
+}
+
+// Override Material chip
+.mat-mdc-chip {
+  border-radius: var(--radius-full) !important;
+}
+
+// Override Material snackbar / toast
+.mat-mdc-snack-bar-container {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+// Override focus ring to use design token
+.mat-mdc-button:focus-visible,
+.mat-mdc-icon-button:focus-visible,
+.mat-mdc-fab:focus-visible {
+  box-shadow: var(--shadow-focus) !important;
+}

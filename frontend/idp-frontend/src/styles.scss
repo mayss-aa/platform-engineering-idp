@@ -1,0 +1,33 @@
+// =============================================================================
+// Global Styles Entry Point — Enterprise IDP Frontend
+// Uses @use (Dart Sass module system) for our own partials.
+// Import order: tokens → dark-tokens → material → reset → typography →
+//               icons → animations → grid → utilities
+// =============================================================================
+
+// 1 — Design tokens (light theme — :root)
+@use 'styles/tokens';
+
+// 2 — Dark theme token overrides ([data-theme="dark"])
+@use 'styles/tokens-dark';
+
+// 3 — Angular Material M3 theme (uses SCSS variables; @use required by mat)
+@use 'styles/material-theme';
+
+// 4 — CSS reset
+@use 'styles/reset';
+
+// 5 — Typography scale + font imports
+@use 'styles/typography';
+
+// 6 — Material Symbols Rounded icon font
+@use 'styles/icons';
+
+// 7 — Keyframe animations + motion helpers
+@use 'styles/animations';
+
+// 8 — Layout grids (KPI grid, content grid, page layout)
+@use 'styles/grid';
+
+// 9 — Utility classes
+@use 'styles/utilities';

@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import { ProvisionRequest, ProvisionRequestData } from '../models/provision-request.models';
+
+@Injectable({ providedIn: 'root' })
+export class ProvisionRequestMockService {
+  getRequests(): ProvisionRequestData {
+    return { requests: MOCK_REQUESTS, totalCount: MOCK_REQUESTS.length };
+  }
+}
+
+const MOCK_REQUESTS: ProvisionRequest[] = [
+  { id: 'PR-1042', requester: 'alice.martin', organization: 'Platform Engineering', team: 'Core Platform', requestedService: 'Redis Cluster', resourceType: 'Cache', environment: 'production', cloudProvider: 'Azure', configuration: { nodes: '3', memory: '8GB', replication: 'enabled' }, createdAt: '2025-01-14T10:00:00Z', approvedAt: '2025-01-15T08:30:00Z', approver: 'bob.chen', estimatedMonthlyCost: 245, priority: 'HIGH', status: 'APPROVED', workflowStage: 'Provisioning', comments: ['Needed for session caching'] },
+  { id: 'PR-1043', requester: 'emma.schulz', organization: 'Product Engineering', team: 'Data Platform', requestedService: 'PostgreSQL HA', resourceType: 'Database', environment: 'production', cloudProvider: 'Azure', configuration: { size: 'Standard_D4s_v3', storage: '512GB', replicas: '2' }, createdAt: '2025-01-15T09:00:00Z', approvedAt: null, approver: null, estimatedMonthlyCost: 890, priority: 'HIGH', status: 'PENDING_APPROVAL', workflowStage: 'Review', comments: ['Required for new analytics pipeline'] },
+  { id: 'PR-1041', requester: 'david.kwame', organization: 'Platform Engineering', team: 'Observability', requestedService: 'Elasticsearch Cluster', resourceType: 'Search', environment: 'staging', cloudProvider: 'Azure', configuration: { nodes: '3', storage: '256GB', version: '8.11' }, createdAt: '2025-01-13T14:00:00Z', approvedAt: '2025-01-14T09:00:00Z', approver: 'bob.chen', estimatedMonthlyCost: 620, priority: 'MEDIUM', status: 'PROVISIONED', workflowStage: 'Complete', comments: ['Log indexing for Loki replacement evaluation'] },
+  { id: 'PR-1040', requester: 'carol.dubois', organization: 'Platform Engineering', team: 'Infrastructure Automation', requestedService: 'AKS Node Pool', resourceType: 'Compute', environment: 'production', cloudProvider: 'Azure', configuration: { vmSize: 'Standard_D8s_v3', minNodes: '2', maxNodes: '5' }, createdAt: '2025-01-12T11:00:00Z', approvedAt: null, approver: null, estimatedMonthlyCost: 1200, priority: 'CRITICAL', status: 'REJECTED', workflowStage: 'Closed', comments: ['Budget exceeded for Q1', 'Resubmit in Q2'] },
+  { id: 'PR-1044', requester: 'alice.martin', organization: 'Platform Engineering', team: 'Core Platform', requestedService: 'Azure Key Vault', resourceType: 'Security', environment: 'production', cloudProvider: 'Azure', configuration: { sku: 'Standard', softDelete: 'true' }, createdAt: '2025-01-15T11:00:00Z', approvedAt: null, approver: null, estimatedMonthlyCost: 15, priority: 'LOW', status: 'SUBMITTED', workflowStage: 'Submitted', comments: [] },
+  { id: 'PR-1039', requester: 'emma.schulz', organization: 'Product Engineering', team: 'Payments', requestedService: 'Azure Service Bus', resourceType: 'Messaging', environment: 'staging', cloudProvider: 'Azure', configuration: { tier: 'Standard', queues: '5' }, createdAt: '2025-01-11T08:00:00Z', approvedAt: '2025-01-11T14:00:00Z', approver: 'bob.chen', estimatedMonthlyCost: 95, priority: 'MEDIUM', status: 'PROVISIONING', workflowStage: 'Infrastructure', comments: ['Event-driven architecture PoC'] },
+  { id: 'PR-1038', requester: 'david.kwame', organization: 'Platform Engineering', team: 'Security Ops', requestedService: 'WAF Policy', resourceType: 'Security', environment: 'production', cloudProvider: 'Azure', configuration: { mode: 'Prevention', ruleSet: 'OWASP 3.2' }, createdAt: '2025-01-10T09:00:00Z', approvedAt: '2025-01-10T15:00:00Z', approver: 'alice.martin', estimatedMonthlyCost: 180, priority: 'HIGH', status: 'FAILED', workflowStage: 'Error', comments: ['Terraform apply failed — policy conflict'] },
+];

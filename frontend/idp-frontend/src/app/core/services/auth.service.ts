@@ -41,10 +41,21 @@ const MOCK_USERS: Record<string, { password: string; user: User }> = {
       lastLogin: new Date().toISOString(),
     },
   },
+  'platform@idp.internal': {
+    password: 'platform123',
+    user: {
+      id: 'usr-002',
+      displayName: 'Platform Engineer',
+      email: 'platform@idp.internal',
+      role: 'PLATFORM_ENGINEER' as UserRole,
+      organizationId: 'org-001',
+      lastLogin: new Date().toISOString(),
+    },
+  },
   'dev@idp.internal': {
     password: 'dev123',
     user: {
-      id: 'usr-002',
+      id: 'usr-003',
       displayName: 'Developer User',
       email: 'dev@idp.internal',
       role: 'DEVELOPER' as UserRole,
@@ -55,10 +66,21 @@ const MOCK_USERS: Record<string, { password: string; user: User }> = {
   'viewer@idp.internal': {
     password: 'viewer123',
     user: {
-      id: 'usr-003',
+      id: 'usr-004',
       displayName: 'Viewer User',
       email: 'viewer@idp.internal',
       role: 'VIEWER' as UserRole,
+      organizationId: 'org-001',
+      lastLogin: new Date().toISOString(),
+    },
+  },
+  'auditor@idp.internal': {
+    password: 'auditor123',
+    user: {
+      id: 'usr-005',
+      displayName: 'Auditor User',
+      email: 'auditor@idp.internal',
+      role: 'AUDITOR' as UserRole,
       organizationId: 'org-001',
       lastLogin: new Date().toISOString(),
     },

@@ -38,7 +38,7 @@ Implement the Angular 20 Enterprise IDP Frontend as a progressive single-page ap
     - **Validates: Requirements 23.8**
 
 
-- [~] 3. Core Models & Interfaces
+- [x] 3. Core Models & Interfaces
   - Create `src/app/core/models/auth.models.ts`: `User`, `UserRole`, `AuthTokens` interfaces
   - Create `src/app/core/models/rbac.models.ts`: `Permission` union type, `ROLE_PERMISSIONS` matrix for all 5 roles (ADMIN, DEVELOPER, VIEWER, APPROVER, OPERATOR) with full permission sets
   - Create `src/app/core/models/resource-state.models.ts`: `ResourceState<T>`, `FeatureReadinessLevel`, `createInitialState<T>()`
@@ -46,7 +46,7 @@ Implement the Angular 20 Enterprise IDP Frontend as a progressive single-page ap
   - Create `src/app/core/models/notification.models.ts`: `NotificationType`, `Notification` interfaces
   - _Requirements: 2.8, 3.1–3.11, 25.6, 27.1_
 
-- [~] 4. Core Signal Stores
+- [x] 4. Core Signal Stores
   - Create `src/app/core/stores/auth.store.ts`: `AuthStore` with `user: Signal<User | null>`, `isAuthenticated: computed`, `tokens: Signal<AuthTokens | null>` (in-memory only)
   - Create `src/app/core/stores/theme.store.ts`: `ThemeStore` with `current: Signal<'light' | 'dark'>`
   - Create `src/app/core/stores/notification-count.store.ts`: `NotificationCountStore` with `unreadCount: Signal<number>`
